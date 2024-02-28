@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1>hellow</h1>
+      <h1 className="text-center ">hellow</h1>
     </>
   )
 }
