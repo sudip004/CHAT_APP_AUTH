@@ -1,13 +1,19 @@
 
 import './App.css'
+import Home from './pages/home/Home'
+// import Login from './pages/login/Login'
+// import Signup from './pages/signup/Signup'
 
 function App() {
 
 
   return (
-    <>
-      <h1 className="text-center ">hellow</h1>
-    </>
+    <div className='p-4 h-screen flex items-center justify-center' id="main">
+      {/* <Login /> */}
+      {/* <Signup /> */}
+      <Home />
+    </div>
+   
   )
 }
 
