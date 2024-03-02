@@ -1,9 +1,55 @@
-
+import { useState } from "react"
+import toast from 'react-hot-toast'
+import { useAuthContext } from "../context/AuthContext"
 
 const useSignUp = () => {
-  return (
-    <div>useSignUp</div>
-  )
+
+ const[loading, setLoading] = useState(false)
+ const {authUser,setAuthUser} = useAuthContext()
+
+ const signup = async({fullName,userName,password,confirmPassword,gender}) => {
+    const success = handelInputError({fullName,userName,password,confirmPassword,gender})
+    if(!success) return;
+    setLoading(true);
+    try {
+        const res = await fetch("/api/auth/signup",{
+            method:"POST",
+            headers: {"Content-Type": "application/json" },
+            body:JSON.stringify({ fullName, userName, password, confirmPassword ,gender })
+        })
+        const data = await res.json()
+        if(data.error){
+            throw new Error(data.error)
+        }
+
+        // if user signup then  save the token in local storage and redirect to dashboard page
+        // localstorage
+        localStorage.setItem("chatUser",JSON.stringify(data))
+        setAuthUser(data)
+    } catch (error) {
+        setLoading(false)
+    }
+ }
+
+ return{ loading, signup}
+  
 }
 
 export default useSignUp
+
+
+function handelInputError({fullName,userName,password,confirmPassword,gender}) {
+        if(!fullName || !userName || !password || !confirmPassword || !gender ) {
+            toast.error( "Please fill all fields") 
+            return false;
+        }
+        if(!password || !confirmPassword){
+            toast.error("Password do not match")
+            return false;
+        }
+        if(password.length < 6){
+            toast.error("Password must be at least 6 characters")
+            return false;
+        }
+    return true;
+}
