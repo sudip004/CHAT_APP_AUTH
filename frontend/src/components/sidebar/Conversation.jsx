@@ -1,23 +1,24 @@
 
 
-const Conversation = () => {
+const Conversation = ({conversation,emojis,lastIndex}) => {
+    
   return (
     <>
         <div className=" flex gap-2 items-center hover:bg-sky-500 p-2 py-1 cursor-pointer">
             <div className=" avatar online">
                 <div className=" w-12 rounded-full">
-                    <img src="" alt="" />
+                    <img src={conversation.profilePic} alt="" />
                 </div>
             </div>
 
             <div className=" flex flex-col flex-1">
                 <div className=" flex gap-3 justify-between">
-                    <p className=" font-bold text-gray-200">Sudip Basak</p>
-                    <span className=" text-xl">O</span>
+                    <p className=" font-bold text-gray-200">{conversation.username}</p>
+                    <span className=" text-xl">{emojis}</span>
                 </div>
             </div>
 
-            <div className="  divider my-0 py-0 h-1"/>
+            {!lastIndex  && (<div className="  divider my-0 py-0 h-1"/>)}
         </div>
     </>
   )

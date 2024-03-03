@@ -5,20 +5,22 @@ import { useAuthContext } from "../context/AuthContext"
 const useSignUp = () => {
 
  const[loading, setLoading] = useState(false)
- const {authUser,setAuthUser} = useAuthContext()
+ const {setAuthUser} = useAuthContext()
 
- const signup = async({fullName,userName,password,confirmPassword,gender}) => {
-    const success = handelInputError({fullName,userName,password,confirmPassword,gender})
+ const signup = async({fullName,username,password,confirmPassword,gender}) => {
+    const success = handelInputError({fullName,username,password,confirmPassword,gender})
     if(!success) return;
     setLoading(true);
     try {
         const res = await fetch("/api/auth/signup",{
             method:"POST",
             headers: {"Content-Type": "application/json" },
-            body:JSON.stringify({ fullName, userName, password, confirmPassword ,gender })
+            body:JSON.stringify({ fullName, username, password, confirmPassword ,gender })
         })
         const data = await res.json()
+        console.log("fetch data",data);
         if(data.error){
+            console.log("error on itttt usesignup page");
             throw new Error(data.error)
         }
 
@@ -38,8 +40,8 @@ const useSignUp = () => {
 export default useSignUp
 
 
-function handelInputError({fullName,userName,password,confirmPassword,gender}) {
-        if(!fullName || !userName || !password || !confirmPassword || !gender ) {
+function handelInputError({fullName,username,password,confirmPassword,gender}) {
+        if(!fullName || !username || !password || !confirmPassword || !gender ) {
             toast.error( "Please fill all fields") 
             return false;
         }

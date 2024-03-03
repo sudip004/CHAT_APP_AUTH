@@ -8,7 +8,7 @@ const Signup = () => {
 
     const [inputs,setInputs] = useState({
       fullName:"",
-      userName:"",
+      username:"",
       password:"",
       confirmPassword:"",
       gender:""
@@ -51,7 +51,7 @@ const Signup = () => {
             placeholder="UserName"
             className="input input-bordered input-secondary w-full max-w-xs"
             value={inputs.userName}
-            onChange={(e)=> setInputs({...inputs,userName:e.target.value})}
+            onChange={(e)=> setInputs({...inputs,username:e.target.value})}
           />
 
           <input
@@ -76,7 +76,10 @@ const Signup = () => {
         <Link to="/login" className="text-sm hover:underline hover:text-blue-600 hover: text-lg mt-2 inline-blocks">
           {"Already"} have an account? <span className=" text-lg">Login</span>
         </Link>
-        <button type="submit" className=" btn btn-block btn-sm mt-2 border-slate-700">Sign-up</button>
+        <button type="submit" className=" btn btn-block btn-sm mt-2 border-slate-700"
+        disabled={loading}
+        >
+          {loading ? <span className=" loading loading-spinner"></span> : "sign-up"}</button>
       </form>
     </div>
   </div>

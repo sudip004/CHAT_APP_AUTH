@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
 
-  const [inputs,setInputs] = useState({
-    userName:"",
-    password:"",
-  })
+    const {loading,login} = useLogin()
 
+  const [username,setUsername]= useState("")
+  const [password,setPassword]= useState("")
 
-  const handelSubmit = (e) => {
+  const handelSubmit = async(e) => {
     e.preventDefault();
-    console.log(inputs);
+    await login(username,password)
   }
 
   return (
@@ -30,21 +30,23 @@ const Login = () => {
               type="text"
               placeholder="UserName"
               className="input input-bordered input-secondary w-full max-w-xs"
-              value={inputs.userName}
-              onChange={(e)=> setInputs({...inputs,userName:e.target.value})}
+              value={username}
+              onChange={(e)=>setUsername(e.target.value) }
             />
             <input
               type="password"
               placeholder=" Password"
               className="input input-bordered input-accent w-full max-w-xs"
-              value={inputs.password}
-              onChange={(e)=> setInputs({...inputs,password:e.target.value})}
+              value={password}
+              onChange={(e)=>setPassword(e.target.value) }
             />
           </div>
           <Link to="/signup" className="text-sm hover:underline hover:text-blue-600 hover: text-lg mt-2 inline-blocks">
             {"Don't"} have an account? <span className=" text-lg">Sign up</span>
           </Link>
-          <button type="submit" className=" btn btn-block btn-sm mt-2 border-slate-700">Login</button>
+          <button type="submit" className=" btn btn-block btn-sm mt-2 border-slate-700"
+          disabled={loading}
+          >{loading ? <span className=" loading loading-spinner"></span> : "Login"}</button>
         </form>
       </div>
     </div>
