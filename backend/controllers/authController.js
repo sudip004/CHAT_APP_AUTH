@@ -18,8 +18,8 @@ export const login = async(req,res)=>{
         res.status(200).json({
             id:user._id,
         fullName:user.fullName,
-        username : user.username
-
+        username : user.username,
+        profilePic:user.profilePic
         })
 
     } catch (error) {
@@ -47,7 +47,7 @@ export const login = async(req,res)=>{
         // console.log(hashedPassword);
        // avtar placeholder .iran
         const boyProfilepic = `https://avatar.iran.liara.run/public/boy?username=${username}`
-        const girlProfilepic = `https://avatar.iran.liara.run/public/boy?username=${username}`
+        const girlProfilepic = `https://avatar.iran.liara.run/public/girl?username=${username}`
         
         const newUer = await User({
             fullName,
@@ -63,7 +63,8 @@ export const login = async(req,res)=>{
         res.status(201).json({message:"New user created successfully",
         id:newUer._id,
         fullName:newUer.fullName,
-        username : newUer.username
+        username : newUer.username,
+        profilePic:newUer.profilePic
     })
 
     } catch (error) {

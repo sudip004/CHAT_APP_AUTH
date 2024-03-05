@@ -54,10 +54,14 @@ export const getMessage = async (req,res) => {
     try {
         const {id: userToChatId} = req.params
         const senderId  = req.user._id
-
+        // console.log("Receiver",userToChatId);
+        // console.log("sender",senderId);
         const Conversation = await conversation.findOne({
             perticipants: {$all:[senderId,userToChatId]}
         }).populate("messages")
+
+        console.log(Conversation);
+        console.log(Conversation.messages);
 
         res.status(200).json(Conversation.messages)
 
